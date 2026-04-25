@@ -1,4 +1,1 @@
-public class PilaPrinceton<T> implements Pila<T>
-{
-
-}
+public class PilaPrinceton<T> extends Stack<T> implements Pila<T>{}
