@@ -160,31 +160,6 @@ public class Queue<Item> implements Iterable<Item> {
             return item;
         }
     }
-
-
-    /**
-     * Unit tests the {@code Queue} data type.
-     *
-     * @param args the command-line arguments
-     */
-    public static void main(String[] args) {
-        Queue<String> queue = new Queue<String>();
-        // Usamos Scanner de Java estándar en lugar de StdIn
-        java.util.Scanner scanner = new java.util.Scanner(System.in);
-
-        System.out.println("Ingresa palabras (escribe '-' para desencolar o Ctrl+D para terminar):");
-
-        while (scanner.hasNext()) {
-            String item = scanner.next();
-            if (!item.equals("-")) {
-                queue.enqueue(item);
-            } else if (!queue.isEmpty()) {
-                // Usamos System.out en lugar de StdOut
-                System.out.print(queue.dequeue() + " ");
-            }
-        }
-        System.out.println("(" + queue.size() + " left on queue)");
-    }
 }
 
 /******************************************************************************

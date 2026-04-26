@@ -22,7 +22,6 @@
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 /**
  *  The {@code Stack} class represents a last-in-first-out (LIFO) stack of generic items.
@@ -165,29 +164,6 @@ public class Stack<Item> implements Iterable<Item> {
             current = current.next;
             return item;
         }
-    }
-
-
-    /**
-     * Unit tests the {@code Stack} data type.
-     *
-     * @param args the command-line arguments
-     */
-    public static void main(String[] args) {
-        Stack<String> stack = new Stack<String>();
-        Scanner scanner = new Scanner(System.in); // Usamos Scanner en lugar de StdIn
-
-        System.out.println("Ingresa datos (escribe '-' para hacer pop o Ctrl+D para terminar):");
-
-        while (scanner.hasNext()) {
-            String item = scanner.next();
-            if (!item.equals("-")) {
-                stack.push(item);
-            } else if (!stack.isEmpty()) {
-                System.out.print(stack.pop() + " ");
-            }
-        }
-        System.out.println("(" + stack.size() + " left on stack)");
     }
 }
 
