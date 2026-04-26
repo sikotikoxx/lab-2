@@ -110,7 +110,7 @@ public class WebCrawler{
             {
                 fila.dequeue();
             }
-            // simulacion que se encuentran 2 url por pagina
+            // Simulamos que encontramos 2 links por pagina
             fila.enqueue("link1_" + i);
             fila.enqueue("link2_" + i);
         }
