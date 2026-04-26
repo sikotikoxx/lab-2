@@ -2,7 +2,7 @@
  * Interfaz genérica de una cola FIFO.
  * @param <T> el tipo de elemento que almacenará la cola.
  */
-public interface Cola<T> {
+public interface Fila<T> {
     
     /**
      * Inserta un item al final de la cola.
@@ -33,5 +33,4 @@ public interface Cola<T> {
      * @return true si no hay elementos, false en caso contrario
      */
     boolean isEmpty();
-
 }

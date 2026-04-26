@@ -1,1 +1,1 @@
-public class FilaPrinceton<T> extends Queue<T> implements Cola<T>{}
+public class FilaPrinceton<T> extends Queue<T> implements Fila<T>{}
