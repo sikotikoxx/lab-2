@@ -4,6 +4,9 @@ import java.util.regex.Pattern;
 public class WebCrawler{
     private Pila<String> pila;
     private Fila<String> fila;
+    // mediciones regla 3: Compilamos los patrones una sola vez al inicio para que no ensucien la medición de tiempo
+    private static final Pattern PATRON_ETIQUETAS = Pattern.compile("<(/?)(\\w+)([^>]*)>");
+    private static final Pattern PATRON_LINKS = Pattern.compile("href=\"(http[^\"]+)\"");
     public WebCrawler(Pila<String> pila, Fila<String> fila)
     {
         this.pila = pila;
@@ -11,22 +14,21 @@ public class WebCrawler{
     }
     public boolean esXHTMLValido(String xhtml)
     {
-        // Regla 1: <!DOCTYPE> es mandatorio
+        // regla 1: <!DOCTYPE> es mandatorio
         if (!xhtml.toUpperCase().contains("<!DOCTYPE")) return false;
-        // Regla 2: El atributo xmlns en <html> es obligatorio
+        // regla 2: El atributo xmlns en <html> es obligatorio
         int inicioHtml = xhtml.indexOf("<html");
         if (inicioHtml == -1) return false;
         int finHtml = xhtml.indexOf(">", inicioHtml);
         String etiquetaHtml = xhtml.substring(inicioHtml, finHtml);
         if (!etiquetaHtml.contains("xmlns")) return false;
-        // Limpiamos la pila por si quedaron restos de una validación anterior
+        // limpiamos la pila por si quedaron restos
         while (!pila.isEmpty())
         {
             pila.pop();
         }
-        // Reglas 3 y 4: LIFO y Minúsculas
-        Pattern patron = Pattern.compile("<(/?)(\\w+)([^>]*)>");
-        Matcher matcher = patron.matcher(xhtml);
+        // reglas 3 y 4: LIFO y Minúsculas usando el patrón pre-compilado
+        Matcher matcher = PATRON_ETIQUETAS.matcher(xhtml);
         while (matcher.find())
         {
             String esCierre = matcher.group(1);     // Devuelve "/" si es de cierre, vacío si es apertura
@@ -38,8 +40,7 @@ public class WebCrawler{
             {
                 pila.push(nombreEtiqueta);
             }
-            else
-            {
+            else{
                 if (pila.isEmpty()) return false;
                 String tope = pila.pop();
                 if (!tope.equals(nombreEtiqueta)) return false;
@@ -52,11 +53,11 @@ public class WebCrawler{
         try{ // intenta ejecutar sentencias que pueden lanzar un error en tiempo de ejecución
             In in = new In(url);
             if (!in.exists()) return false;
-
             String contenidoHTML = in.readAll();
             return esXHTMLValido(contenidoHTML);
-        }
-        catch (Exception e) {return false;} //captura y maneja los errores del bloque de try
+        } catch (Exception e) {
+            return false;
+        } //captura y maneja los errores del bloque de try
     }
     public boolean chequearURLs(String urlInicial, int limite)
     {
@@ -66,7 +67,6 @@ public class WebCrawler{
         while (!fila.isEmpty()) fila.dequeue();
         fila.enqueue(urlInicial);
         visitados.add(urlInicial);
-        Pattern patronLinks = Pattern.compile("href=\"(http[^\"]+)\"");
         while (!fila.isEmpty() && paginasRevisadas < limite)
         {
             String urlActual = fila.dequeue();
@@ -82,10 +82,10 @@ public class WebCrawler{
             }
             try{
                 In in = new In(urlActual);
-                if (in.exists())
-                {
+                if (in.exists()) {
                     String contenidoHTML = in.readAll();
-                    Matcher matcher = patronLinks.matcher(contenidoHTML);
+                    // usamos el patrón de links pre-compilado
+                    Matcher matcher = PATRON_LINKS.matcher(contenidoHTML);
                     while (matcher.find())
                     {
                         String nuevaUrl = matcher.group(1);
@@ -96,11 +96,11 @@ public class WebCrawler{
                         }
                     }
                 }
-            }
-            catch (Exception e) {}
+            } catch (Exception e) {}
         }
         return todasSonValidas;
     }
+
     public static void simularCrawlerOffline(int N, Fila<String> fila)
     {
         fila.enqueue("url_raiz");
