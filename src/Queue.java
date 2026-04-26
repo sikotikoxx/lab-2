@@ -14,7 +14,6 @@
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 /**
  *  The {@code Queue} class represents a first-in-first-out (FIFO)
