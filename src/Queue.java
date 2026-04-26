@@ -14,6 +14,7 @@
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 /**
  *  The {@code Queue} class represents a first-in-first-out (FIFO)
@@ -168,14 +169,21 @@ public class Queue<Item> implements Iterable<Item> {
      */
     public static void main(String[] args) {
         Queue<String> queue = new Queue<String>();
-        while (!StdIn.isEmpty()) {
-            String item = StdIn.readString();
-            if (!item.equals("-"))
+        // Usamos Scanner de Java estándar en lugar de StdIn
+        java.util.Scanner scanner = new java.util.Scanner(System.in);
+
+        System.out.println("Ingresa palabras (escribe '-' para desencolar o Ctrl+D para terminar):");
+
+        while (scanner.hasNext()) {
+            String item = scanner.next();
+            if (!item.equals("-")) {
                 queue.enqueue(item);
-            else if (!queue.isEmpty())
-                StdOut.print(queue.dequeue() + " ");
+            } else if (!queue.isEmpty()) {
+                // Usamos System.out en lugar de StdOut
+                System.out.print(queue.dequeue() + " ");
+            }
         }
-        StdOut.println("(" + queue.size() + " left on queue)");
+        System.out.println("(" + queue.size() + " left on queue)");
     }
 }
 
