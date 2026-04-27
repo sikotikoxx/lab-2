@@ -1,3 +1,4 @@
+// Ariel Olea y Santiago González
 /******************************************************************************
  *  Compilation:  javac SET.java
  *  Execution:    java SET

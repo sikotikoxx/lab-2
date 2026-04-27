@@ -1,3 +1,4 @@
+// Ariel Olea y Santiago González
 /******************************************************************************
  *  Compilation:  javac Stack.java
  *  Execution:    java Stack < input.txt

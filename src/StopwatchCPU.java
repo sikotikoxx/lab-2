@@ -1,3 +1,4 @@
+// Ariel Olea y Santiago González
 /******************************************************************************
  *  Compilation:  javac StopwatchCPU.java
  *  Execution:    java StopwatchCPU n

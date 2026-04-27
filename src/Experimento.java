@@ -1,3 +1,4 @@
+// Ariel Olea y Santiago González
 public class Experimento{
     public static String generarXHTMLSintetico(int N)// metodo para hacer la pagina falsa
     {

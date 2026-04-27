@@ -1,3 +1,4 @@
+// Ariel Olea y Santiago González
 /******************************************************************************
  *  Compilation:  javac Out.java
  *  Execution:    java Out

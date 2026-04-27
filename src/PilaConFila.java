@@ -1,3 +1,4 @@
+// Ariel Olea y Santiago González
 public class PilaConFila<T> implements Pila<T>
 {
     private Queue<T> lolero; //lolero funcionara como una fila

@@ -1,3 +1,4 @@
+// Ariel Olea y Santiago González
 /**
  * Interfaz genérica de una cola FIFO.
  * @param <T> el tipo de elemento que almacenará la cola.

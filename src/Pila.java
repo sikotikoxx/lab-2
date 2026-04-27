@@ -1,3 +1,4 @@
+// Ariel Olea y Santiago González
 /**
  * Interfaz genérica de una pila.
  * @param <T> el tipo de elemento que contendrá la pila
